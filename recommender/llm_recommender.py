@@ -44,16 +44,21 @@ class LLMRecommender:
     def recommend(self, query: str, max_results: int = 5) -> List[Dict]:
         """Get recommendations with error handling and fuzzy matching"""
         try:
-            response = model.generate_content(
-                f"""Analyze this job requirement and match to SHL assessments:
-                Job Requirement: {query}
-                Available Assessments:\n{"-"*30}\n{'\n'.join(self.descriptions)}
-                Return ONLY comma-separated list of {max_results} most relevant assessment names.
-                Consider duration, test types, and description.
-                Format: "Name1, Name2, ..."
-                """
+            description_block = "\n".join(self.descriptions)
+
+            prompt = (
+                f"Analyze this job requirement and match to SHL assessments:\n"
+                f"Job Requirement: {query}\n"
+                f"Available Assessments:\n"
+                f"{'-'*30}\n"
+                f"{description_block}\n"
+                f"Return ONLY comma-separated list of {max_results} most relevant assessment names.\n"
+                f"Consider duration, test types, and description.\n"
+                f"Format: \"Name1, Name2, ...\""
             )
-            
+
+            response = model.generate_content(prompt)
+
             # Clean and validate response
             cleaned_names = [
                 name.strip() 
