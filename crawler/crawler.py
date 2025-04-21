@@ -75,13 +75,13 @@ def scrape_shl_assessments():
     is_first_page = True
 
     while current_url:
-        print(f"\n🔄 [Page {page_number}] Scraping: {current_url}")
+        print(f"\n [Page {page_number}] Scraping: {current_url}")
         try:
             time.sleep(1.5)
             response = session.get(current_url)
             
             if response.status_code != 200:
-                print(f"⚠️ [Page {page_number}] Failed to fetch (HTTP {response.status_code})")
+                print(f" [Page {page_number}] Failed to fetch (HTTP {response.status_code})")
                 break
 
             soup = BeautifulSoup(response.text, 'html.parser')
@@ -101,7 +101,7 @@ def scrape_shl_assessments():
                 if table_container:
                     rows = table_container.select('tr[data-entity-id]')
 
-            print(f"🔍 [Page {page_number}] Found {len(rows)} individual assessments")
+            print(f" [Page {page_number}] Found {len(rows)} individual assessments")
 
             for row in rows:
                 try:
@@ -135,7 +135,7 @@ def scrape_shl_assessments():
                     })
 
                 except Exception as e:
-                    print(f"❌ [Page {page_number}] Error processing row: {str(e)}")
+                    print(f" [Page {page_number}] Error processing row: {str(e)}")
                     continue
 
             # Handle pagination
@@ -158,21 +158,21 @@ def scrape_shl_assessments():
             page_number += 1
 
         except Exception as e:
-            print(f"🔥 [Page {page_number}] Critical error: {str(e)}")
+            print(f" [Page {page_number}] Critical error: {str(e)}")
             break
 
     return assessments
 
 if __name__ == "__main__":
-    print("🚀 Starting enhanced SHL assessment scraper...")
-    print("📝 This will collect durations as integers (-1 = N/A) and descriptions")
+    print(" Starting enhanced SHL assessment scraper...")
+    print(" This will collect durations as integers (-1 = N/A) and descriptions")
     
     data = scrape_shl_assessments()
     
     with open("shl_assessments_full.json", "w") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
     
-    print(f"\n🎉 Successfully scraped {len(data)} assessments")
-    print("💾 Saved to shl_assessments_full.json")
+    print(f"\n Successfully scraped {len(data)} assessments")
+    print(" Saved to shl_assessments_full.json")
     print("Sample entry:")
     print(json.dumps(data[0], indent=2) if data else "No data collected")

@@ -78,7 +78,7 @@ class LLMRecommender:
             return results
 
         except Exception as e:
-            print(f"⚠️ Recommendation error: {str(e)}")
+            print(f" Recommendation error: {str(e)}")
             return []
 
 if __name__ == "__main__":
@@ -101,7 +101,7 @@ if __name__ == "__main__":
             results = recommender.recommend(query)
             
             # Display results
-            print("\n🔍 Results for:", query)
+            print("\n Results for:", query)
             for i, res in enumerate(results, 1):
                 print(f"{i}. {res['name']}")
                 print(f"   URL: {res['url']}")
@@ -112,6 +112,6 @@ if __name__ == "__main__":
             print("―" * 50 + "\n")
             
     except KeyboardInterrupt:
-        print("\n👋 Exiting...")
+        print("\n Exiting...")
     except Exception as e:
-        print(f"🔥 Error: {str(e)}")
+        print(f"Error: {str(e)}")
