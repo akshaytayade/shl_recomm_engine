@@ -84,7 +84,7 @@ class LLMRecommender:
 if __name__ == "__main__":
     try:
         recommender = LLMRecommender()
-        print("🌟 SHL Assessment Recommender 🌟")
+        print("SHL Assessment Recommender")
         print("Type 'exit' to quit\n")
         
         while True:
@@ -94,7 +94,7 @@ if __name__ == "__main__":
                 break
                 
             if not query.strip():
-                print("⚠️ Please enter a valid query\n")
+                print("Please enter a valid query\n")
                 continue
                 
             # Get recommendations
