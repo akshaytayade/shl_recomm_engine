@@ -4,7 +4,7 @@ import requests
 import time
 
 # Configuration
-API_URL = "https://shl-recomm-engine.onrender.com"  # Change to your deployed URL
+API_URL = "http://localhost:8000"  # Change to your deployed URL
 
 def main():
     st.set_page_config(
